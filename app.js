@@ -1,78 +1,40 @@
-var NodeGit = require("nodegit");
+var MNodeGit = require("./nodegit.js");
 
-var cloneURL = "https://github.com/snxfz947/DotifyPublic.git";
+var express = require('express');
+var bodyParser = require('body-parser');
+var fs = require('fs');
+var path = require('path');
+var app = express();
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-var localPath = require("path").join(__dirname, "tmp");
+var pathToRepo = path.resolve("tmp");
 
-var cloneOptions = {};
-
-cloneOptions.fetchOpts = {
-    callbacks: {
-        certificateCheck: function() { return 1; }
-    }
-};
-
-var errorAndAttemptOpen = function(r) {
-    console.log(r);
-    return NodeGit.Repository.open(local);
-};
-
-var generalError = function(r) {
-    console.log(r);
+function getRepos(resp) {
+    fs.readdir(path.resolve("repositories"), function(err, dirs) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            resp.status(200).send(dirs);
+        }
+    });
 }
 
-// if nothing in tmp
+//GET repositories
+app.get('/repos', function(request, response) {
+    console.log('repos');
+    var repos = getRepos(response);
 
-// var cloneRepository = NodeGit.Clone(cloneURL, localPath, cloneOptions);
-//
-// cloneRepository.catch(errorAndAttemptOpen)
-//     .then(function(repository) {
-//         // Access any repository methods here.
-//         console.log("Is the repository bare? %s", Boolean(repository.isBare()));
-//         return repository.getMasterCommit();
-//     }).catch(generalError)
-//     .then(function(firstCommitOnMaster) {
-//         var history = firstCommitOnMaster.history(NodeGit.Revwalk.SORT.Time);
-//         var count = 0;
-//         history.on("commit", function(commit) {
-//             count++;
-//             console.log("commit " + commit.sha());
-//             console.log("Author:", commit.author().name() +
-//                 " <" + commit.author().email() + ">");
-//             console.log("Date:", commit.date());
-//             console.log("\n    " + commit.message());
-//             if (count == 10) {
-//                 console.log("wat");
-//                 history.removeListener("commit", function() {
-//                     console.log("Done");
-//                 });
-//             }
-//         });
-//         history.start();
-//     }).catch(generalError());
+});
 
-var pathToRepo = require("path").resolve("tmp");
+//GET commits
+app.get('/commits', function(request, response) {
+    var res = MNodeGit.getCommits(pathToRepo, response);
+});
 
-NodeGit.Repository.open(pathToRepo)
-    .then(function (repository) {
-        // Access any repository methods here.
-        console.log("Is the repository bare? %s", Boolean(repository.isBare()));
-        return repository.getMasterCommit();
-    }).catch(generalError)
-    .then(function(firstCommitOnMaster) {
-        var history = firstCommitOnMaster.history(NodeGit.Revwalk.SORT.Time);
-        var count = 0;
-        history.on("commit", function(commit) {
-            count++;
-            console.log("commit " + commit.sha());
-            console.log("Author:", commit.author().name() +'l'
-                " <" + commit.author().email() + ">");
-            console.log("Date:", commit.date());
-            console.log("\n    " + commit.message());
-            if (count == 10) {
-                history.removeListener("commit");
-            }
-        });
-        history.start();
-    }).catch(generalError());
-
+app.listen(app.get('port'), function() {
+    console.log("Node app is running at localhost:" + app.get('port'))
+});
