@@ -25,7 +25,6 @@ function getRepos(resp) {
 
 //GET repositories
 app.get('/repos', function(request, response) {
-    console.log('repos');
     var repos = getRepos(response);
 
 });

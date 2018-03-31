@@ -10,10 +10,19 @@ function ajaxRequest(type, url, action) {
         }
         else if(action == 'repos') {
             if(this.responseText) {
-                console.log(JSON.parse(this.responseText));
+                var repoAr = JSON.parse(this.responseText);
+                if(repoAr.length == 0) {
+                    document.getElementById("dropdownReposButton").innerHTML = "No repositories available";
+                    var toDel = document.getElementById("dropdownRepos");
+                    toDel.remove();
+                }
+                else {
+                    document.getElementById("dropdownReposButton").innerHTML = "Choose one";
+                    fillDropdown(repoAr);
+                }
             }
             else {
-                console.log("No repositories available");
+                document.getElementById("dropdownReposButton").innerHTML = "No repositories available";
             }
         }
     };

@@ -7,3 +7,11 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+.repoDropdown {
+    display: inline-block;
+}
+
+.row {
+    margin-top: 15px;
+}

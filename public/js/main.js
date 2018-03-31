@@ -1,5 +1,6 @@
 var tableSize = 10;
 
+// expects an array of commits
 function fillTable(commits) {
     var table = document.getElementById("commits");
     var size = 0;
@@ -33,6 +34,17 @@ function fillTable(commits) {
         if (size === tableSize) {
             break;
         }
+    }
+}
+
+// expects an array of directories
+function fillDropdown(repos) {
+    var dropdown = document.getElementById("dropdownRepos");
+    for(var r in repos) {
+        var sel = document.createElement("a");
+        sel.className = "dropdown-item";
+        sel.innerHTML = repos[r];
+        dropdown.appendChild(sel);
     }
 }
 
