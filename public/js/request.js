@@ -1,4 +1,4 @@
-function ajaxRequest(type, url, action) {
+function ajaxRequest(type, url, action, arg1) {
     var request = new XMLHttpRequest();
     request.open(type, url);
     request.timeout = 5000;
@@ -32,5 +32,13 @@ function ajaxRequest(type, url, action) {
     request.ontimeout = function() {
         console.log("Timeout: please check your internet connection");
     };
-    request.send();
+    if (action === 'commits') {
+        var arg = {
+            repo: arg1
+        };
+        request.send(JSON.stringify(arg));
+    }
+    else {
+        request.send();
+    }
 }

@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var pathToRepo = path.resolve("tmp");
+var pathToRepos = path.resolve("repositories");
 
 function getRepos(resp) {
     fs.readdir(path.resolve("repositories"), function(err, dirs) {
@@ -29,9 +29,9 @@ app.get('/repos', function(request, response) {
 
 });
 
-//GET commits
-app.get('/commits', function(request, response) {
-    var res = MNodeGit.getCommits(pathToRepo, response);
+//POST commits
+app.post('/commits', function(request, response) {
+    MNodeGit.getCommits(path.resolve(pathToRepos, request.body.repo), response);
 });
 
 app.listen(app.get('port'), function() {

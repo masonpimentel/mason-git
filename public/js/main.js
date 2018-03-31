@@ -42,6 +42,7 @@ function fillDropdown(repos) {
     var dropdown = document.getElementById("dropdownRepos");
     for(var r in repos) {
         var sel = document.createElement("a");
+        sel.href = "javascript:ajaxRequest('POST','/commits', 'commits', '" + repos[r] + "')";
         sel.className = "dropdown-item";
         sel.innerHTML = repos[r];
         dropdown.appendChild(sel);
@@ -50,6 +51,3 @@ function fillDropdown(repos) {
 
 // Get the available repositories
 ajaxRequest('GET','/repos', 'repos');
-
-// Fill the table
-ajaxRequest('GET','/commits', 'commits');
