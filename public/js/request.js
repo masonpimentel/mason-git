@@ -25,6 +25,9 @@ function ajaxRequest(type, url, action, arg1) {
                 document.getElementById("dropdownReposButton").innerHTML = "No repositories available";
             }
         }
+        else if(action == 'diff') {
+            var res = JSON.parse(this.responseText);
+        }
     };
     request.onerror = function() {
         console.log("There was an error communicating with the server - please try again");
@@ -32,7 +35,7 @@ function ajaxRequest(type, url, action, arg1) {
     request.ontimeout = function() {
         console.log("Timeout: please check your internet connection");
     };
-    if (action === 'commits') {
+    if (action === 'commits' || action === 'diff') {
         var arg = {
             repo: arg1
         };

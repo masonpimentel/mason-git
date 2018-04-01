@@ -1,5 +1,12 @@
 var tableSize = 10;
 
+var selectedRepo;
+
+function selectRepo(repo) {
+    selectedRepo = repo;
+    ajaxRequest('POST','/commits', 'commits', repo);
+}
+
 // expects an array of commits
 function fillTable(commits) {
     var table = document.getElementById("commits");
@@ -42,7 +49,7 @@ function fillDropdown(repos) {
     var dropdown = document.getElementById("dropdownRepos");
     for(var r in repos) {
         var sel = document.createElement("a");
-        sel.href = "javascript:ajaxRequest('POST','/commits', 'commits', '" + repos[r] + "')";
+        sel.href = "javascript:selectRepo('" + repos[r] + "')";
         sel.className = "dropdown-item";
         sel.innerHTML = repos[r];
         dropdown.appendChild(sel);

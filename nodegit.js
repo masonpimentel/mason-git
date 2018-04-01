@@ -77,4 +77,44 @@ exports.getCommits = function(pathToRepo, resp) {
         }).catch(generalError);
 };
 
+exports.getDiff = function(pathToRepo, commitSha, resp) {
+    var diffFiles = [];
+    NodeGit.Repository.open(pathToRepo)
+        .then(function(repo) {
+            return repo.getCommit('2df4e613e9d3be1e004414c333db86f12013fbfa');
+        })
+        .then(function(commit) {
+            console.log("commit " + commit.sha() + "\n");
+            return commit.getDiff();
+        })
+        .then(function(diffList) {
+            diffList.forEach(function (diff, diffCount) {
+                diff.patches().then(function (patches) {
+                    patches.forEach(function (patch, patchCount) {
+                        patch.hunks().then(function (hunks) {
+                            hunks.forEach(function (hunk, hunkCount) {
+                                hunk.lines().then(function (lines) {
+                                    var lineContentAr = [];
+                                    var diffFileObj = {
+                                        path: "diff" + " " + patch.oldFile().path() + " " + patch.newFile().path(),
+                                        header: hunk.header().trim(),
+                                        lines: lineContentAr
+                                    };
+                                    lines.forEach(function (line, lineCount) {
+                                        lineContentAr.push(String.fromCharCode(line.origin()) + line.content().trim());
+                                        if((diffCount == diffList.length-1) && (patchCount == patches.length-1) && (hunkCount == hunks.length-1) && (lineCount == lines.length-1)) {
+                                            console.log("all done");
+                                            diffFiles.push(diffFileObj);
+                                            resp.status(200).send(diffFiles);
+                                        }
+                                    });
+                                    diffFiles.push(diffFileObj);
+                                });
+                            });
+                        });
+                    });
+                });
 
+            });
+        });
+};

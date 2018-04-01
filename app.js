@@ -26,12 +26,16 @@ function getRepos(resp) {
 //GET repositories
 app.get('/repos', function(request, response) {
     var repos = getRepos(response);
-
 });
 
 //POST commits
 app.post('/commits', function(request, response) {
     MNodeGit.getCommits(path.resolve(pathToRepos, request.body.repo), response);
+});
+
+//POST diff
+app.post('/diff', function(request, response) {
+   MNodeGit.getDiff(path.resolve(pathToRepos, request.body.repo), "dummy", response);
 });
 
 app.listen(app.get('port'), function() {

@@ -23,7 +23,7 @@
         <h1>MasonGit</h1>
     </div>
 
-    <div class="row">
+    <div class="row listcommits">
         <div class="col-md-6">
             <h4 class="repoDropdown">Selected repository:</h4>
             <div class="dropdown repoDropdown">
@@ -44,7 +44,7 @@
 
     </div>
 
-    <div class="row">
+    <div class="row listcommits">
         <table id="commits">
             <tr>
                 <th>Date</th>
@@ -54,6 +54,18 @@
             </tr>
         </table>
     </div>
+
+    <div class="row showdiff" style="display:none;">
+        <h4>Diff for: <span id="repoNameDiff"></span></h4>
+
+    </div>
+
+    <div class="row showdiff" style="display:none;">
+
+    </div>
+
+    <button onclick="javascript:ajaxRequest('POST', '/diff', 'diff', selectedRepo);">Diff</button>
+    <button onclick="javascript:ajaxRequest('POST', '/diff/lskdf');">DiffF</button>
 
 </div>
 </body>
