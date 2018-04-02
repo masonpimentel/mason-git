@@ -44,7 +44,7 @@
 
     </div>
 
-    <div class="row listcommits">
+    <div id="commitTable" class="row listcommits">
         <table id="commits">
             <tr>
                 <th>Date</th>
@@ -54,18 +54,27 @@
             </tr>
         </table>
     </div>
+    <div id="showdiff" style="display:none;">
+        <div class="row">
+            <div class="col-md-4">
+                <button type="text" class="btn btn-primary" onclick="javascript:showDiffs()"><img class="back_chev" src="images/chevron-left.svg" style="width:15px;height:22px;color:white;">&nbspBack</button>
+            </div>
+        </div>
 
-    <div class="row showdiff" style="display:none;">
-        <h4>Diff for: <span id="repoNameDiff"></span></h4>
+        <div class="row">
+            <h5 class="col-md-12">Diff for: "<span id="repoNameDiff"></span>"</h5><br>
+            <span class="col-md-12">SHA:&nbsp<span id="diffSha"></span></span>
+        </div>
 
+
+
+        <div class="row">
+            <table id="diffTable">
+
+            </table>
+        </div>
     </div>
 
-    <div class="row showdiff" style="display:none;">
-
-    </div>
-
-    <button onclick="javascript:ajaxRequest('POST', '/diff', 'diff', selectedRepo);">Diff</button>
-    <button onclick="javascript:ajaxRequest('POST', '/diff/lskdf');">DiffF</button>
 
 </div>
 </body>

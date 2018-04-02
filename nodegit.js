@@ -81,7 +81,7 @@ exports.getDiff = function(pathToRepo, commitSha, resp) {
     var diffFiles = [];
     NodeGit.Repository.open(pathToRepo)
         .then(function(repo) {
-            return repo.getCommit('2df4e613e9d3be1e004414c333db86f12013fbfa');
+            return repo.getCommit(commitSha);
         })
         .then(function(commit) {
             console.log("commit " + commit.sha() + "\n");

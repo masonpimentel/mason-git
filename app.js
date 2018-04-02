@@ -35,7 +35,7 @@ app.post('/commits', function(request, response) {
 
 //POST diff
 app.post('/diff', function(request, response) {
-   MNodeGit.getDiff(path.resolve(pathToRepos, request.body.repo), "dummy", response);
+   MNodeGit.getDiff(path.resolve(pathToRepos, request.body.repo), request.body.commitSha, response);
 });
 
 app.listen(app.get('port'), function() {
