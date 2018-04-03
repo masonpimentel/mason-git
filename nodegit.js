@@ -97,11 +97,11 @@ exports.getDiff = function(pathToRepo, commitSha, resp) {
                                     var lineContentAr = [];
                                     var diffFileObj = {
                                         path: "diff" + " " + patch.oldFile().path() + " " + patch.newFile().path(),
-                                        header: hunk.header().trim(),
+                                        header: hunk.header(),
                                         lines: lineContentAr
                                     };
                                     lines.forEach(function (line, lineCount) {
-                                        lineContentAr.push(String.fromCharCode(line.origin()) + line.content().trim());
+                                        lineContentAr.push(String.fromCharCode(line.origin()) + line.content());
                                         if((diffCount == diffList.length-1) && (patchCount == patches.length-1) && (hunkCount == hunks.length-1) && (lineCount == lines.length-1)) {
                                             console.log("all done");
                                             diffFiles.push(diffFileObj);

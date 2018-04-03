@@ -27,6 +27,7 @@ function ajaxRequest(type, url, action, arg1, arg2) {
         }
         else if(action == 'diff') {
             var res = JSON.parse(this.responseText);
+            fillDiffTable(res);
         }
     };
     request.onerror = function() {

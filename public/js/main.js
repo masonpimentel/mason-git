@@ -2,9 +2,17 @@ var tableSize = 10;
 
 var selectedRepo;
 
+// from https://stackoverflow.com/questions/1219860/html-encoding-lost-when-attribute-read-from-input-field
+function htmlEncode(value){
+    // Create a in-memory div, set its inner text (which jQuery automatically encodes)
+    // Then grab the encoded contents back out. The div never exists on the page.
+    return $('<div/>').text(value).html();
+}
+
 // expects a string for the repository
 function selectRepo(repo) {
     selectedRepo = repo;
+    document.getElementById("dropdownReposButton").innerHTML = repo;
     clearDiffs();
     ajaxRequest('POST','/commits', 'commits', repo);
 }
@@ -96,6 +104,53 @@ function fillDropdown(repos) {
         sel.innerHTML = repos[r];
         dropdown.appendChild(sel);
     }
+}
+
+// expects an array of diffs
+// diff obj:
+//  {
+//      path: string
+//      header: string
+//      lines: array of strings
+//  }
+function fillDiffTable(diffs) {
+    var dTable = document.getElementById("diffTable");
+    diffs.forEach(function(d) {
+        var path = d['path'];
+        var header = d['header'];
+        var lines = d['lines'];
+
+        var pathRow = document.createElement("tr");
+        pathRow.innerHTML = path;
+        pathRow.style.border = "1px solid black";
+        pathRow.style.backgroundColor = "#ffffff";
+        dTable.appendChild(pathRow);
+
+        var headerRow = document.createElement("tr");
+        headerRow.innerHTML = header;
+        headerRow.style.backgroundColor = "#b3d9ff";
+        dTable.appendChild(headerRow);
+
+        lines.forEach(function(l) {
+            var lineRow = document.createElement("tr");
+            lineRow.innerHTML = htmlEncode(l);
+            if(l[0] === "+") {
+                lineRow.style.backgroundColor = "#33cc33";
+            }
+            else if(l[0] === "-") {
+                lineRow.style.backgroundColor = "#ff3333";
+            }
+            else {
+                lineRow.style.backgroundColor = "#ffffff";
+            }
+            dTable.appendChild(lineRow);
+        });
+
+        var blank = document.createElement("tr");
+        blank.innerHTML = "&nbsp";
+        blank.style.backgroundColor = "#ffffff";
+        dTable.appendChild(blank);
+    });
 }
 
 // Get the available repositories
