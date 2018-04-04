@@ -2,6 +2,7 @@ td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    max-width: 100%;
 }
 
 tr:nth-child(even) {
@@ -10,6 +11,11 @@ tr:nth-child(even) {
 
 tr {
     white-space: pre;
+    max-width: 100%;
+}
+
+table {
+    max-width: 100%;
 }
 
 .repoDropdown {
@@ -22,8 +28,4 @@ tr {
 
 #diffTableCont {
     padding-left: 15px;
-}
-
-#repoUrl {
-    width: 100%;
 }

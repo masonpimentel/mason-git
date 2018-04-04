@@ -1,7 +1,12 @@
 function ajaxRequest(type, url, action, arg1, arg2) {
     var request = new XMLHttpRequest();
     request.open(type, url);
-    request.timeout = 5000;
+    if(action == 'clone') {
+        request.timeout = 20000;
+    }
+    else {
+        request.timeout = 5000;
+    }
     request.setRequestHeader('Content-Type', 'application/json');
 
     request.onload = function () {
@@ -29,6 +34,10 @@ function ajaxRequest(type, url, action, arg1, arg2) {
             var res = JSON.parse(this.responseText);
             fillDiffTable(res);
         }
+        else if (action == 'clone') {
+            clearDropdown();
+            ajaxRequest('GET','/repos', 'repos');
+        }
     };
     request.onerror = function() {
         console.log("There was an error communicating with the server - please try again");
@@ -51,7 +60,8 @@ function ajaxRequest(type, url, action, arg1, arg2) {
     }
     else if(action === 'clone') {
         var arg = {
-            url: arg1
+            name: arg1,
+            url: arg2
         };
         request.send(JSON.stringify(arg));
     }

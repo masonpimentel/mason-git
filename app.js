@@ -42,8 +42,7 @@ app.post('/diff', function(request, response) {
 
 //POST clone
 app.post('/clone', function(request, response) {
-    console.log('hurr');
-    MNodeGit.cloneRepository(request.body.url, response);
+    MNodeGit.cloneRepository(request.body.name, request.body.url, localConfig.repoPath, response);
 });
 
 app.listen(app.get('port'), function() {

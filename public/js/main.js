@@ -28,9 +28,11 @@ function clearDiffs() {
 
 function cloneRepo() {
     var url = document.getElementById("repoUrl").value;
+    var name = document.getElementById("cloneRepoName").value;
     document.getElementById("repoUrl").value = "";
+    document.getElementById("cloneRepoName").value = "";
     $("#cloneRepo").modal("hide");
-    ajaxRequest('POST', '/clone', 'clone', url);
+    ajaxRequest('POST', '/clone', 'clone', name, url);
 }
 
 // expects a string for the commit SHA
@@ -100,6 +102,15 @@ function fillTable(commits) {
         if (size === tableSize) {
             break;
         }
+    }
+}
+
+function clearDropdown() {
+    var dropdown = document.getElementById("dropdownRepos");
+    var allrepos = dropdown.childNodes;
+    var l = allrepos.length;
+    for(var i=0; i < l; i++) {
+        dropdown.removeChild(allrepos[0]);
     }
 }
 

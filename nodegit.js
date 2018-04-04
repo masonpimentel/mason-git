@@ -4,11 +4,14 @@ var localPath = require("path").join(__dirname, "repositories");
 
 var cloneOptions = {};
 
+var clonedRepo = {}
+
 cloneOptions.fetchOpts = {
     callbacks: {
         certificateCheck: function() { return 1; }
     }
 };
+cloneOptions.bare = 1;
 
 var errorAndAttemptOpen = function(r) {
     console.log(r);
@@ -19,10 +22,13 @@ var generalError = function(r) {
     console.log(r);
 };
 
-exports.cloneRepository = function(url, resp) {
-    console.log("hurrr");
-    var cloneRepository = NodeGit.Clone(url, localPath, cloneOptions);
-    cloneRepository.catch(errorAndAttemptOpen);
+exports.cloneRepository = function(name, url, localPath, resp) {
+    var cloneRepository = NodeGit.Clone(url, localPath + "/" + name + ".git", cloneOptions);
+    cloneRepository.catch(errorAndAttemptOpen)
+        .then(function(repository){
+            console.log("Is the repository bare? %s", Boolean(repository.isBare()));
+            resp.status(200).send();
+        });
 };
 
 // var cloneRepository = NodeGit.Clone(cloneURL, localPath, cloneOptions);
