@@ -26,7 +26,7 @@
         <div class="row listcommits">
             <div class="col-md-6">
                 <h4 class="repoDropdown">Selected repository:</h4>
-                <div class="dropdown repoDropdown">
+                <div id="dropDownParent" class="dropdown repoDropdown">
                     <button id="dropdownReposButton" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     </button>
@@ -88,7 +88,7 @@
                 <div class="modal-body">
                     Note that this has currently only been tested with HTTPS (not SSH)<br>
                     Name: <input type="text" placeholder="Some Repository" id="cloneRepoName"><br>
-                    URL: <input type="text" placeholder="https://someurl.com/someuser/somerepository.git" id="repoUrl">
+                    URL: <input type="text" placeholder="https://someurl.com/someuser/somerepository.git" id="repoUrl"><br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="javascript:cloneRepo();">Clone</button>

@@ -23,6 +23,11 @@ function ajaxRequest(type, url, action, arg1, arg2) {
                 }
                 else {
                     document.getElementById("dropdownReposButton").innerHTML = "Choose one";
+                    var dropdown = document.createElement("div");
+                    dropdown.id = "dropdownRepos";
+                    dropdown.class = "dropdown-menu";
+                    dropdown.setAttribute("aria-labelledby", "dropdownReposButton");
+                    document.getElementById("dropDownParent").appendChild(dropdown);
                     fillDropdown(repoAr);
                 }
             }
