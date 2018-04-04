@@ -1,4 +1,5 @@
 var MNodeGit = require("./nodegit.js");
+var localConfig = require("./config.js");
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -10,14 +11,15 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var pathToRepos = path.resolve("repositories");
-
 function getRepos(resp) {
-    fs.readdir(path.resolve("repositories"), function(err, dirs) {
+    fs.readdir(localConfig.repoPath, function(err, dirs) {
         if (err) {
             console.log(err);
         }
         else {
+            for(var i=0; i < dirs.length; i++) {
+                dirs[i] = dirs[i].split(".git")[0];
+            }
             resp.status(200).send(dirs);
         }
     });
@@ -30,12 +32,12 @@ app.get('/repos', function(request, response) {
 
 //POST commits
 app.post('/commits', function(request, response) {
-    MNodeGit.getCommits(path.resolve(pathToRepos, request.body.repo), response);
+    MNodeGit.getCommits(path.resolve(localConfig.repoPath, request.body.repo), response);
 });
 
 //POST diff
 app.post('/diff', function(request, response) {
-   MNodeGit.getDiff(path.resolve(pathToRepos, request.body.repo), request.body.commitSha, response);
+   MNodeGit.getDiff(path.resolve(localConfig.repoPath, request.body.repo), request.body.commitSha, response);
 });
 
 //POST clone

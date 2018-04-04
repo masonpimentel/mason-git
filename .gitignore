@@ -3,3 +3,4 @@ tmp/
 node_modules/
 repositories/
 package-lock.json
+config.js

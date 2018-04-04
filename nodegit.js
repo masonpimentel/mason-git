@@ -55,10 +55,10 @@ exports.cloneRepository = function(url, resp) {
 
 exports.getCommits = function(pathToRepo, resp) {
     var commits = [];
-    NodeGit.Repository.open(pathToRepo)
+    NodeGit.Repository.openBare(pathToRepo + ".git")
         .then(function (repository) {
             return repository.getMasterCommit();
-        }).catch(generalError)
+        })
         .then(function(firstCommitOnMaster) {
             var history = firstCommitOnMaster.history(NodeGit.Revwalk.SORT.Time);
             var count = 0;
@@ -81,7 +81,7 @@ exports.getCommits = function(pathToRepo, resp) {
 
 exports.getDiff = function(pathToRepo, commitSha, resp) {
     var diffFiles = [];
-    NodeGit.Repository.open(pathToRepo)
+    NodeGit.Repository.openBare(pathToRepo + ".git")
         .then(function(repo) {
             return repo.getCommit(commitSha);
         })
@@ -118,5 +118,5 @@ exports.getDiff = function(pathToRepo, commitSha, resp) {
                 });
 
             });
-        });
+        }).catch(generalError);
 };

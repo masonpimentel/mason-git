@@ -13,7 +13,7 @@ Todos:
 
 1. SSH key management - currently
 
-ssh://gituser@192.168.0.115:9472/home/gituser/sample-project.git/
+ssh://gituser@192.168.0.115:9472/home/gituser/repositories/NodeGit/nodegit.git/
 
 user: gituser
 passwd: masongit
