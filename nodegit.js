@@ -1,8 +1,6 @@
 var NodeGit = require("nodegit");
 
-var cloneURL = "https://github.com/snxfz947/DotifyPublic.git";
-
-var localPath = require("path").join(__dirname, "tmp");
+var localPath = require("path").join(__dirname, "repositories");
 
 var cloneOptions = {};
 
@@ -21,7 +19,11 @@ var generalError = function(r) {
     console.log(r);
 };
 
-// if nothing in tmp
+exports.cloneRepository = function(url, resp) {
+    console.log("hurrr");
+    var cloneRepository = NodeGit.Clone(url, localPath, cloneOptions);
+    cloneRepository.catch(errorAndAttemptOpen);
+};
 
 // var cloneRepository = NodeGit.Clone(cloneURL, localPath, cloneOptions);
 //

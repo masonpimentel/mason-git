@@ -8,3 +8,12 @@ Git server
 Git UI
 
 Since I have zero faith in my Linux server actually working when it needs to, I made this workable without
+
+Todos:
+
+1. SSH key management - currently
+
+ssh://gituser@192.168.0.115:9472/home/gituser/sample-project.git/
+
+user: gituser
+passwd: masongit

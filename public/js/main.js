@@ -14,7 +14,7 @@ function selectRepo(repo) {
     selectedRepo = repo;
     document.getElementById("dropdownReposButton").innerHTML = repo;
     clearDiffs();
-    ajaxRequest('POST','/commits', 'commits', repo);
+    ajaxRequest('POST', '/commits', 'commits', repo);
 }
 
 function clearDiffs() {
@@ -24,6 +24,13 @@ function clearDiffs() {
     for(var i=0; i < l-1; i++) {
         tableEl.deleteRow(1);
     }
+}
+
+function cloneRepo() {
+    var url = document.getElementById("repoUrl").value;
+    document.getElementById("repoUrl").value = "";
+    $("#cloneRepo").modal("hide");
+    ajaxRequest('POST', '/clone', 'clone', url);
 }
 
 // expects a string for the commit SHA
@@ -55,6 +62,8 @@ function showDiffs() {
 
 // expects an array of commits
 function fillTable(commits) {
+    var commitsTable = document.getElementById("commitTable");
+    commitsTable.style.display = "block";
     var table = document.getElementById("commits");
     var size = 0;
     for(var c in commits) {
@@ -153,5 +162,14 @@ function fillDiffTable(diffs) {
     });
 }
 
-// Get the available repositories
-ajaxRequest('GET','/repos', 'repos');
+window.onload = function() {
+    // Get the available repositories
+    ajaxRequest('GET','/repos', 'repos');
+
+    $("#cloneRepo").on('shown.bs.modal', function(){
+        var input = document.getElementById("repoUrl");
+        input.value = "";
+        input.focus();
+    });
+};
+

@@ -38,6 +38,12 @@ app.post('/diff', function(request, response) {
    MNodeGit.getDiff(path.resolve(pathToRepos, request.body.repo), request.body.commitSha, response);
 });
 
+//POST clone
+app.post('/clone', function(request, response) {
+    console.log('hurr');
+    MNodeGit.cloneRepository(request.body.url, response);
+});
+
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
 });

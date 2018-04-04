@@ -49,6 +49,12 @@ function ajaxRequest(type, url, action, arg1, arg2) {
         };
         request.send(JSON.stringify(arg));
     }
+    else if(action === 'clone') {
+        var arg = {
+            url: arg1
+        };
+        request.send(JSON.stringify(arg));
+    }
     else {
         request.send();
     }

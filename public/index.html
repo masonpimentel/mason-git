@@ -17,65 +17,83 @@
     <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <body>
-<div class="container custom">
-    <div class="row">
-        <img src="images/MasonGit.png">
-        <h1>MasonGit</h1>
+    <div class="container custom">
+        <div class="row">
+            <img src="images/MasonGit.png">
+            <h1>MasonGit</h1>
+        </div>
+
+        <div class="row listcommits">
+            <div class="col-md-6">
+                <h4 class="repoDropdown">Selected repository:</h4>
+                <div class="dropdown repoDropdown">
+                    <button id="dropdownReposButton" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    </button>
+                    <div id="dropdownRepos" class="dropdown-menu" aria-labelledby="dropdownReposButton">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                or...
+            </div>
+            <div class="col-md-5">
+                <button type="text" class="btn btn-primary" data-toggle="modal" data-target="#cloneRepo">Select a repository to clone</button>
+            </div>
+
+        </div>
+
+        <div id="commitTable" class="row listcommits" style="display:none;">
+            <table id="commits">
+                <tr>
+                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Commit</th>
+                    <th>SHA</th>
+                </tr>
+            </table>
+        </div>
+        <div id="showdiff" style="display:none;">
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="text" class="btn btn-primary" onclick="javascript:showDiffs()"><img class="back_chev" src="images/chevron-left.svg" style="width:15px;height:22px;color:white;">&nbspCommits</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <h5 class="col-md-12">Diff for: "<span id="repoNameDiff"></span>"</h5><br>
+                <span class="col-md-12">SHA:&nbsp<span id="diffSha"></span></span>
+            </div>
+
+
+
+            <div id="diffTableCont" class="row">
+                <table id="diffTable">
+
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div class="row listcommits">
-        <div class="col-md-6">
-            <h4 class="repoDropdown">Selected repository:</h4>
-            <div class="dropdown repoDropdown">
-                <button id="dropdownReposButton" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                </button>
-                <div id="dropdownRepos" class="dropdown-menu" aria-labelledby="dropdownReposButton">
-
+    <div class="modal fade" id="cloneRepo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select repository to clone</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Note that this has currently only been tested with HTTPS (not SSH)<br>
+                    <input type="text" placeholder="https://someurl.com/someuser/somerepository.git" id="repoUrl">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="javascript:cloneRepo();">Clone</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-1">
-            or...
-        </div>
-        <div class="col-md-5">
-            <button type="text" class="btn btn-primary">Select a repository to clone</button>
-        </div>
-
     </div>
-
-    <div id="commitTable" class="row listcommits">
-        <table id="commits">
-            <tr>
-                <th>Date</th>
-                <th>Author</th>
-                <th>Commit</th>
-                <th>SHA</th>
-            </tr>
-        </table>
-    </div>
-    <div id="showdiff" style="display:none;">
-        <div class="row">
-            <div class="col-md-4">
-                <button type="text" class="btn btn-primary" onclick="javascript:showDiffs()"><img class="back_chev" src="images/chevron-left.svg" style="width:15px;height:22px;color:white;">&nbspCommits</button>
-            </div>
-        </div>
-
-        <div class="row">
-            <h5 class="col-md-12">Diff for: "<span id="repoNameDiff"></span>"</h5><br>
-            <span class="col-md-12">SHA:&nbsp<span id="diffSha"></span></span>
-        </div>
-
-
-
-        <div id="diffTableCont" class="row">
-            <table id="diffTable">
-
-            </table>
-        </div>
-    </div>
-
-
-</div>
 </body>
 </html>

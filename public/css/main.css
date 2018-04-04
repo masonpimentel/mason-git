@@ -23,3 +23,7 @@ tr {
 #diffTableCont {
     padding-left: 15px;
 }
+
+#repoUrl {
+    width: 100%;
+}
