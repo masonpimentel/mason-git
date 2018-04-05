@@ -21,40 +21,36 @@
     <div class="container custom">
 
         <div id="headerEls" class="sticky-top">
-            <div class="container">
-                <div class="row">
-                    <img src="images/MasonGit.png">
-                    <h1>MasonGit</h1>
-                </div>
-
-                <div class="row listcommits">
-                    <div class="col-md-6">
-                        <h4 class="repoDropdown">Selected repository:</h4>
-                        <div id="dropDownParent" class="dropdown repoDropdown">
-                            <button id="dropdownReposButton" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                            </button>
-                            <div id="dropdownRepos" class="dropdown-menu" aria-labelledby="dropdownReposButton">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        or...
-                    </div>
-                    <div class="col-md-5">
-                        <button type="text" class="btn btn-primary" data-toggle="modal" data-target="#cloneRepo">Select a repository to clone</button>
-                    </div>
-                </div>
-
-                <div id="backNav" class="row" style="display:none;">
-                    <div class="col-md-4">
-                        <button type="text" class="btn btn-primary" onclick="javascript:showDiffs()"><img class="back_chev" src="images/chevron-left.svg" style="width:15px;height:22px;color:white;">&nbspCommits</button>
-                    </div>
-                </div>
-
+            <div class="row">
+                <img src="images/MasonGit.png">
+                <h1>MasonGit</h1>
             </div>
 
+            <div class="row listcommits">
+                <div class="col-md-6">
+                    <h4 class="repoDropdown">Selected repository:</h4>
+                    <div id="dropDownParent" class="dropdown repoDropdown">
+                        <button id="dropdownReposButton" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                        </button>
+                        <div id="dropdownRepos" class="dropdown-menu" aria-labelledby="dropdownReposButton">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    or...
+                </div>
+                <div class="col-md-5">
+                    <button type="text" class="btn btn-primary" data-toggle="modal" data-target="#cloneRepo">Select a repository to clone</button>
+                </div>
+            </div>
+
+            <div id="backNav" class="row" style="display:none;">
+                <div class="col-md-4">
+                    <button type="text" class="btn btn-primary" onclick="javascript:showDiffs()"><img class="back_chev" src="images/chevron-left.svg" style="width:15px;height:22px;color:white;">&nbspCommits</button>
+                </div>
+            </div>
         </div>
 
         <div id="commitTable" class="row listcommits" style="display:none;">
