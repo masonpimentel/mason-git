@@ -36,6 +36,7 @@ function getDiff(commitSha, commitName) {
     document.getElementById("diffSha").innerHTML = commitSha;
 }
 
+// Clear the diffs (all diffs for a repo)
 function clearDiffs() {
     var tableEl = document.getElementById("commits");
     var allrows = tableEl.rows;
@@ -45,11 +46,14 @@ function clearDiffs() {
     }
 }
 
+// Show the diffs (all diffs for a repo)
 function showDiffs() {
     document.getElementById("commitTable").style.display = "block";
     document.getElementById("backNav").style.display = "none";
     document.getElementById("showdiff").style.display = "none";
+
     clearDiffs();
+    clearDiffTable();
 
     ajaxRequest('POST','/commits', 'commits', selectedRepo);
 }
@@ -165,7 +169,16 @@ function fillDiffTable(diffs) {
         blank.style.backgroundColor = "#ffffff";
         dTable.appendChild(blank);
     });
+}
 
+// Clear the diffs table
+function clearDiffTable() {
+    var tableEl = document.getElementById("diffTable");
+    var allrows = tableEl.rows;
+    var l = allrows.length;
+    for(var i=0; i < l; i++) {
+        tableEl.deleteRow(0);
+    }
 }
 
 // from https://stackoverflow.com/questions/1219860/html-encoding-lost-when-attribute-read-from-input-field
