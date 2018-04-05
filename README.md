@@ -30,7 +30,7 @@ The main features the UI include:
 * List the commits for a selected repository on the Git server
 
 TODO: add options for a certain number of commits per page
-* View the diffs of the commits
+* View the diffs of the commits (note that some diffs may be empty due to only binaries being updated, such as uploading an image)
 
 TODO: add more information such as line numbers (unfortunately not readily available by the NodeGit library...)
 * Clone repositories to the Git server
