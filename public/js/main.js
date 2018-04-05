@@ -188,12 +188,19 @@ function htmlEncode(value){
     return $('<div/>').text(value).html();
 }
 
+function cloneEventListener(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("startClone").click();
+    }
+}
+
 window.onload = function() {
     // Get the available repositories
     ajaxRequest('GET','/repos', 'repos');
 
     $("#cloneRepo").on('shown.bs.modal', function(){
-        var input = document.getElementById("repoUrl");
+        var input = document.getElementById("cloneRepoName");
         input.value = "";
         input.focus();
     }).on('hidden.bs.modal', function() {
@@ -202,5 +209,8 @@ window.onload = function() {
         document.getElementById("successMessage").style.display = 'none';
         document.getElementById("errorMessage").style.display = 'none';
     });
+
+    document.getElementById("repoUrl").addEventListener("keyup", cloneEventListener);
+    document.getElementById("cloneRepoName").addEventListener("keyup", cloneEventListener);
 };
 
