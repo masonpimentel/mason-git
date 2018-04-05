@@ -10,7 +10,7 @@ This project was intended to be a complete Git ecosystem and has 2 components:
 ## Git server
 
 It is currently possible to access a git repository (clone, push, pull) I have set up at:
-ssh://mpimentel947.ddns.net:9422/home/gituser/repositories/MasonGit.git
+ssh://gituser@mpimentel947.ddns.net:9422/home/gituser/repositories/MasonGit.git
 
 user: gituser<br>
 passwd: masongit
