@@ -10,7 +10,7 @@ This project was intended to be a complete Git ecosystem and has 2 components:
 ## Git server
 
 It is currently possible to access a git repository (clone, push, pull) I have set up at:
-ssh://gituser@mpimentel947.ddns.net:9422/home/gituser/repositories/MasonGit.git
+**ssh://gituser@mpimentel947.ddns.net:9422/home/gituser/repositories/MasonGit.git**
 
 user: gituser<br>
 passwd: masongit
@@ -54,3 +54,32 @@ TODO: add SSH authentication - currently only works for public repositories that
 <img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen8.png" width="500"><br>_Successful clone_
 
 <img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen9.png"><br>_Viewing Dotify commits_
+
+## Putting both together
+
+Add remote for ssh://gituser@mpimentel947.ddns.net:9422/home/gituser/repositories/MasonGit.git
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen11.png"><br>
+
+Make a test commit
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen12.png"><br>
+
+Visit the UI at http://mpimentel947.ddns.net:9474
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen13.png"><br>
+
+Push the commit
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen14.png"><br>
+
+Click on the MasonGit repository in the dropdown again to refresh
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen15.png"><br>
+
+View the test commit diff
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen16.png"><br>
+
+
+
