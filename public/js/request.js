@@ -42,6 +42,10 @@ function ajaxRequest(type, url, action, arg1, arg2) {
         else if (action == 'clone') {
             clearDropdown();
             ajaxRequest('GET','/repos', 'repos');
+            document.getElementById("repoUrl").value = "";
+            document.getElementById("cloneRepoName").value = "";
+            $("#cloneRepo").modal("hide");
+            document.getElementById("pleaseWaitMsg").style.display = 'none';
         }
     };
     request.onerror = function() {

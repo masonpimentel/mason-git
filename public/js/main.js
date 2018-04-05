@@ -14,6 +14,8 @@ function selectRepo(repo) {
     selectedRepo = repo;
     document.getElementById("dropdownReposButton").innerHTML = repo;
     clearDiffs();
+    document.getElementById("showdiff").style.display = "none";
+    document.getElementById("backNav").style.display = "none";
     ajaxRequest('POST', '/commits', 'commits', repo);
 }
 
@@ -29,9 +31,7 @@ function clearDiffs() {
 function cloneRepo() {
     var url = document.getElementById("repoUrl").value;
     var name = document.getElementById("cloneRepoName").value;
-    document.getElementById("repoUrl").value = "";
-    document.getElementById("cloneRepoName").value = "";
-    $("#cloneRepo").modal("hide");
+    document.getElementById("pleaseWaitMsg").style.display = 'block';
     ajaxRequest('POST', '/clone', 'clone', name, url);
 }
 
@@ -39,24 +39,24 @@ function cloneRepo() {
 function getDiff(commitSha, commitName) {
     ajaxRequest('POST', '/diff', 'diff', selectedRepo, commitSha);
 
-    var commitsTable = document.getElementById("commitTable");
-    commitsTable.style.display = "none";
-    var diffEls = document.getElementById("showdiff");
-    diffEls.style.display = "block";
+    document.getElementById("commitTable").style.display = "none";
+    document.getElementById("backNav").style.display = "block";
+    document.getElementById("showdiff").style.display = "block";
 
     var diffName = document.getElementById("repoNameDiff");
     diffName.innerHTML = commitName;
 
     var shaInfo = document.getElementById("diffSha");
     shaInfo.innerHTML = commitSha;
+
+    document.getElementById("showdiff").style.display = "block";
 }
 
 function showDiffs() {
-    var commitsTable = document.getElementById("commitTable");
-    commitsTable.style.display = "block";
-    var diffEls = document.getElementById("showdiff");
-    diffEls.style.display = "none";
 
+    document.getElementById("commitTable").style.display = "block";
+    document.getElementById("backNav").style.display = "none";
+    document.getElementById("showdiff").style.display = "none";
     clearDiffs();
 
     ajaxRequest('POST','/commits', 'commits', selectedRepo);
@@ -103,6 +103,7 @@ function fillTable(commits) {
             break;
         }
     }
+
 }
 
 function clearDropdown() {
@@ -171,6 +172,7 @@ function fillDiffTable(diffs) {
         blank.style.backgroundColor = "#ffffff";
         dTable.appendChild(blank);
     });
+
 }
 
 window.onload = function() {

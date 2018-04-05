@@ -14,9 +14,6 @@ tr {
     max-width: 100%;
 }
 
-table {
-    max-width: 100%;
-}
 
 .repoDropdown {
     display: inline-block;
@@ -28,4 +25,8 @@ table {
 
 #diffTableCont {
     padding-left: 15px;
+}
+
+#headerEls {
+    background-color: white;
 }
