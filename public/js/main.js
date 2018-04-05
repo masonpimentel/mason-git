@@ -2,21 +2,34 @@ var tableSize = 10;
 
 var selectedRepo;
 
-// from https://stackoverflow.com/questions/1219860/html-encoding-lost-when-attribute-read-from-input-field
-function htmlEncode(value){
-    // Create a in-memory div, set its inner text (which jQuery automatically encodes)
-    // Then grab the encoded contents back out. The div never exists on the page.
-    return $('<div/>').text(value).html();
-}
-
 // expects a string for the repository
 function selectRepo(repo) {
     selectedRepo = repo;
     document.getElementById("dropdownReposButton").innerHTML = repo;
     clearDiffs();
-    document.getElementById("showdiff").style.display = "none";
     document.getElementById("backNav").style.display = "none";
+    document.getElementById("showdiff").style.display = "none";
     ajaxRequest('POST', '/commits', 'commits', repo);
+}
+
+function cloneRepo() {
+    var url = document.getElementById("repoUrl").value;
+    var name = document.getElementById("cloneRepoName").value;
+    document.getElementById("pleaseWaitMsg").style.display = 'block';
+    ajaxRequest('POST', '/clone', 'clone', name, url);
+}
+
+// Get a specific diff
+// expects a string for the commit SHA
+function getDiff(commitSha, commitName) {
+    ajaxRequest('POST', '/diff', 'diff', selectedRepo, commitSha);
+
+    document.getElementById("commitTable").style.display = "none";
+    document.getElementById("backNav").style.display = "block";
+    document.getElementById("showdiff").style.display = "block";
+
+    document.getElementById("repoNameDiff").innerHTML = commitName;
+    document.getElementById("diffSha").innerHTML = commitSha;
 }
 
 function clearDiffs() {
@@ -28,32 +41,7 @@ function clearDiffs() {
     }
 }
 
-function cloneRepo() {
-    var url = document.getElementById("repoUrl").value;
-    var name = document.getElementById("cloneRepoName").value;
-    document.getElementById("pleaseWaitMsg").style.display = 'block';
-    ajaxRequest('POST', '/clone', 'clone', name, url);
-}
-
-// expects a string for the commit SHA
-function getDiff(commitSha, commitName) {
-    ajaxRequest('POST', '/diff', 'diff', selectedRepo, commitSha);
-
-    document.getElementById("commitTable").style.display = "none";
-    document.getElementById("backNav").style.display = "block";
-    document.getElementById("showdiff").style.display = "block";
-
-    var diffName = document.getElementById("repoNameDiff");
-    diffName.innerHTML = commitName;
-
-    var shaInfo = document.getElementById("diffSha");
-    shaInfo.innerHTML = commitSha;
-
-    document.getElementById("showdiff").style.display = "block";
-}
-
 function showDiffs() {
-
     document.getElementById("commitTable").style.display = "block";
     document.getElementById("backNav").style.display = "none";
     document.getElementById("showdiff").style.display = "none";
@@ -62,6 +50,7 @@ function showDiffs() {
     ajaxRequest('POST','/commits', 'commits', selectedRepo);
 }
 
+// Fill commits table
 // expects an array of commits
 function fillTable(commits) {
     var commitsTable = document.getElementById("commitTable");
@@ -106,15 +95,7 @@ function fillTable(commits) {
 
 }
 
-function clearDropdown() {
-    var dropdown = document.getElementById("dropdownRepos");
-    var allrepos = dropdown.childNodes;
-    var l = allrepos.length;
-    for(var i=0; i < l; i++) {
-        dropdown.removeChild(allrepos[0]);
-    }
-}
-
+// Fill the dropdown for repos to select
 // expects an array of directories
 function fillDropdown(repos) {
     var dropdown = document.getElementById("dropdownRepos");
@@ -127,6 +108,16 @@ function fillDropdown(repos) {
     }
 }
 
+function clearDropdown() {
+    var dropdown = document.getElementById("dropdownRepos");
+    var allrepos = dropdown.childNodes;
+    var l = allrepos.length;
+    for(var i=0; i < l; i++) {
+        dropdown.removeChild(allrepos[0]);
+    }
+}
+
+// Fill the diffs table
 // expects an array of diffs
 // diff obj:
 //  {
@@ -154,25 +145,35 @@ function fillDiffTable(diffs) {
 
         lines.forEach(function(l) {
             var lineRow = document.createElement("tr");
-            lineRow.innerHTML = htmlEncode(l);
+            var lineCell = document.createElement("td");
+            lineCell.innerHTML = htmlEncode(l);
             if(l[0] === "+") {
-                lineRow.style.backgroundColor = "#33cc33";
+                lineCell.style.backgroundColor = "#33cc33";
             }
             else if(l[0] === "-") {
-                lineRow.style.backgroundColor = "#ff3333";
+                lineCell.style.backgroundColor = "#ff3333";
             }
             else {
-                lineRow.style.backgroundColor = "#ffffff";
+                lineCell.style.backgroundColor = "#ffffff";
             }
+            lineRow.appendChild(lineCell);
             dTable.appendChild(lineRow);
         });
 
         var blank = document.createElement("tr");
+        blank.className = "blankrow"
         blank.innerHTML = "&nbsp";
         blank.style.backgroundColor = "#ffffff";
         dTable.appendChild(blank);
     });
 
+}
+
+// from https://stackoverflow.com/questions/1219860/html-encoding-lost-when-attribute-read-from-input-field
+function htmlEncode(value){
+    // Create a in-memory div, set its inner text (which jQuery automatically encodes)
+    // Then grab the encoded contents back out. The div never exists on the page.
+    return $('<div/>').text(value).html();
 }
 
 window.onload = function() {
