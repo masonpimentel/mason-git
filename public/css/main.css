@@ -21,27 +21,40 @@ tr {
     margin-top: 15px;
 }
 
-#diffTableCont {
+#diffTableCont, #commitTable {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-#diffTable {
+table {
     table-layout: fixed;
     width: 100%;
     white-space: nowrap;
 }
 
-#diffTable td {
+td {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-#diffTable > tr:not(.blankrow) {
+tr:not(.blankrow) {
     border-bottom: 1px solid #dddddd;
 }
 
 #headerEls {
     background-color: white;
     padding: 10px;
+}
+
+.row_date {
+    width: 15%;
+}
+.row_author {
+    width: 20%;
+}
+.row_commit {
+    width: 45%;
+}
+.row_sha {
+    width: 20%;
 }

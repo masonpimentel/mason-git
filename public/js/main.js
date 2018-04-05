@@ -15,7 +15,11 @@ function selectRepo(repo) {
 function cloneRepo() {
     var url = document.getElementById("repoUrl").value;
     var name = document.getElementById("cloneRepoName").value;
+
     document.getElementById("pleaseWaitMsg").style.display = 'block';
+    document.getElementById("successMessage").style.display = 'none';
+    document.getElementById("errorMessage").style.display = 'none';
+
     ajaxRequest('POST', '/clone', 'clone', name, url);
 }
 
@@ -73,7 +77,7 @@ function fillTable(commits) {
         authorEl.innerHTML = commits[c]['author_name'];
 
         var shaFull = commits[c]['sha'];
-        shaEl.innerHTML = shaFull.substring(0, 10) + "...";
+        shaEl.innerHTML = shaFull;
 
         var commitValEl = document.createElement("a");
         commitValEl.href = "javascript:getDiff('" + shaFull + "', '" + commits[c]['message'] + "')";
@@ -86,11 +90,6 @@ function fillTable(commits) {
         row.appendChild(shaEl);
 
         table.appendChild(row);
-
-        size++;
-        if (size === tableSize) {
-            break;
-        }
     }
 
 }
@@ -184,6 +183,11 @@ window.onload = function() {
         var input = document.getElementById("repoUrl");
         input.value = "";
         input.focus();
+    }).on('hidden.bs.modal', function() {
+        document.getElementById("repoUrl").value = "";
+        document.getElementById("cloneRepoName").value = "";
+        document.getElementById("successMessage").style.display = 'none';
+        document.getElementById("errorMessage").style.display = 'none';
     });
 };
 

@@ -42,17 +42,25 @@ function ajaxRequest(type, url, action, arg1, arg2) {
         else if (action == 'clone') {
             clearDropdown();
             ajaxRequest('GET','/repos', 'repos');
-            document.getElementById("repoUrl").value = "";
-            document.getElementById("cloneRepoName").value = "";
-            $("#cloneRepo").modal("hide");
             document.getElementById("pleaseWaitMsg").style.display = 'none';
+            if(this.status == 200) {
+                document.getElementById("successMessage").style.display = 'block';
+            }
+            else {
+                document.getElementById("errorMessageDialog").innerHTML = this.responseText;
+                document.getElementById("errorMessage").style.display = 'block';
+            }
+
         }
     };
     request.onerror = function() {
         console.log("There was an error communicating with the server - please try again");
     };
     request.ontimeout = function() {
-        console.log("Timeout: please check your internet connection");
+        if(action == 'clone') {
+            document.getElementById("pleaseWaitMsg").style.display = 'none';
+            document.getElementById("errorMessage").style.display = 'block';
+        }
     };
     if (action === 'commits') {
         var arg = {

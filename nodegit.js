@@ -13,51 +13,20 @@ cloneOptions.fetchOpts = {
 };
 cloneOptions.bare = 1;
 
-var errorAndAttemptOpen = function(r) {
-    console.log(r);
-    return NodeGit.Repository.open(local);
-};
-
 var generalError = function(r) {
     console.log(r);
+    gResp.status(400).send(r.stack);
 };
 
+var gResp = null;
 exports.cloneRepository = function(name, url, localPath, resp) {
     var cloneRepository = NodeGit.Clone(url, localPath + "/" + name + ".git", cloneOptions);
-    cloneRepository.catch(errorAndAttemptOpen)
-        .then(function(repository){
-            console.log("Is the repository bare? %s", Boolean(repository.isBare()));
+    gResp = resp;
+    cloneRepository.catch(generalError)
+        .then(function(){
             resp.status(200).send();
         });
 };
-
-// var cloneRepository = NodeGit.Clone(cloneURL, localPath, cloneOptions);
-//
-// cloneRepository.catch(errorAndAttemptOpen)
-//     .then(function(repository) {
-//         // Access any repository methods here.
-//         console.log("Is the repository bare? %s", Boolean(repository.isBare()));
-//         return repository.getMasterCommit();
-//     }).catch(generalError)
-//     .then(function(firstCommitOnMaster) {
-//         var history = firstCommitOnMaster.history(NodeGit.Revwalk.SORT.Time);
-//         var count = 0;
-//         history.on("commit", function(commit) {
-//             count++;
-//             console.log("commit " + commit.sha());
-//             console.log("Author:", commit.author().name() +
-//                 " <" + commit.author().email() + ">");
-//             console.log("Date:", commit.date());
-//             console.log("\n    " + commit.message());
-//             if (count == 10) {
-//                 console.log("wat");
-//                 history.removeListener("commit", function() {
-//                     console.log("Done");
-//                 });
-//             }
-//         });
-//         history.start();
-//     }).catch(generalError());
 
 exports.getCommits = function(pathToRepo, resp) {
     var commits = [];
