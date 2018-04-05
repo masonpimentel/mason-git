@@ -1,9 +1,13 @@
-Welcome! This project was inspired by my GitHub student package privileges being taken away since I graduated.
+# MasonGit
+
+Welcome!<br>
+
+This project was inspired by my GitHub student package privileges being taken away since I graduated.
 Instead of paying for my private repositories I decided I'd make my own git server.
 
 This project was intended to be a complete Git ecosystem and has 2 components:
 
-Git server
+## Git server
 
 It is currently possible to access a git repository (clone, push, pull) I have set up at:
 ssh://mpimentel947.ddns.net:9422/home/gituser/repositories/MasonGit.git
@@ -14,7 +18,7 @@ passwd: masongit
 
 A big TODO here is allowing users to create accounts and initialize their own repositories
 
-Git UI (MasonGit)
+## Git UI (MasonGit)
 
 The main features the UI include:
 
@@ -25,11 +29,20 @@ TODO: add more information such as line numbers (unfortunately not readily avail
 * Clone repositories to the Git server
 TODO: add SSH authentication - currently only works for public repositories that do not require authentication
 
-Since I have zero faith in my app server actually working when it needs to, I made this completely workable on a cloud hosted Heroku application:
-at
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen1.png"><br>_Selecting a repository to view_
 
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen2.png"><br>_Viewing the commits for MockBookstorePre_
 
-ssh://gituser@192.168.0.115:9472/home/gituser/repositories/NodeGit.git
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen3.png"><br>_Viewing the diff for commit "Fixing checkout behaviour"_
 
-user: gituser
-passwd: masongit
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen4.png"><br>
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen5.png"><br>_Cloning a repository_
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen6.png"><br>
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen7.png"><br>_Error handling_
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen8.png"><br>_Successful clone_
+
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen9.png"><br>_Viewing Dotify commits_
