@@ -19,7 +19,11 @@ passwd: masongit
 
 A big TODO here is allowing users to create accounts and initialize their own repositories
 
+<img src="https://github.com/snxfz947/MasonGit/blob/master/public/images/Screen10.png"><br>_Server setup_
+
 ## Git UI (MasonGit)
+
+Visit at http://mpimentel947.ddns.net:9474
 
 The main features the UI include:
 
